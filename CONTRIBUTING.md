@@ -25,7 +25,7 @@ Open a pull request on GitHub and follow the same review steps. Before starting 
 
 ## Optional local document builds
 
-Install a TeX distribution with `latexmk` and pdfLaTeX (MacTeX on macOS, TeX Live on Linux, or MiKTeX on Windows). The documents use standard LaTeX packages; Source Sans is used if installed, with Latin Modern as a fallback.
+Install a TeX distribution with `latexmk` and pdfLaTeX (MacTeX on macOS, TeX Live on Linux, or MiKTeX on Windows). The documents use standard LaTeX packages; Source Sans is used if installed, with Latin Modern Sans as a fallback for the proposal.
 
 From the repository root, in Bash (Git Bash or WSL on Windows):
 

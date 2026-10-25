@@ -5,7 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 % Fallback for TeX installations with different Source Sans packages.
-\IfFileExists{sourcesans.sty}{\usepackage[default]{sourcesans}}{\IfFileExists{sourcesanspro.sty}{\usepackage[default]{sourcesanspro}}{\usepackage{lmodern}}}
+\IfFileExists{sourcesans.sty}{\usepackage[default]{sourcesans}}{\IfFileExists{sourcesanspro.sty}{\usepackage[default]{sourcesanspro}}{\usepackage{lmodern}\renewcommand{\familydefault}{\sfdefault}}}
 \usepackage{microtype}
 \usepackage{booktabs,tabularx,array,xcolor}
 \usepackage[hidelinks]{hyperref}
