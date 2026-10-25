@@ -29,7 +29,7 @@ Target angle -> ESP32-S3 control firmware -> motor driver / power stage -> BLDC 
 | [firmware](firmware) | Embedded control code and toolchain instructions |
 | [experiments](experiments) | Test procedures, raw measurements, and analysis |
 
-**Documents:** [Proposal PDF](docs/proposal/main.pdf) · [Proposal source](docs/proposal/main.tex) · [Report PDF](docs/report/main.pdf) · [Report source](docs/report/main.tex) · [Decision notes](docs/notes.md).
+**Documents:** [Proposal PDF](docs/proposal/main.pdf) · [Proposal source](docs/proposal/main.tex) · [Report PDF](docs/report/main.pdf) · [Report source](docs/report/main.tex) · [Decision notes](docs/notes.md) · [Submission checklist](docs/submission-checklist.md).
 
 PDFs update automatically after document changes reach `main`. Check the Documents badge above before downloading: a failed or running build means the checked-in PDF may predate the latest source. Pull requests provide preview PDFs under **Actions → run → Artifacts → document-pdfs**.
 
