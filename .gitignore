@@ -1,0 +1,48 @@
+# Operating system and editor clutter
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# LaTeX intermediates (keep source, figures, and final PDFs)
+docs/**/build/
+docs/**/*.aux
+docs/**/*.log
+docs/**/*.out
+docs/**/*.toc
+docs/**/*.lof
+docs/**/*.lot
+docs/**/*.fls
+docs/**/*.fdb_latexmk
+docs/**/*.synctex.gz
+docs/**/*.bbl
+docs/**/*.blg
+docs/**/*.bcf
+docs/**/*.run.xml
+docs/**/*.nav
+docs/**/*.snm
+docs/**/*.vrb
+docs/**/*.xdv
+docs/**/*.dvi
+
+# Embedded tooling and local analysis outputs
+firmware/**/build/
+firmware/**/.pio/
+firmware/**/managed_components/
+__pycache__/
+.venv/
+
+# Hardware editor temporary files
+hardware/**/*-backups/
+hardware/**/*.lck
+hardware/**/*~

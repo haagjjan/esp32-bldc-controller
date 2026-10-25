@@ -1,0 +1,75 @@
+name: Documents
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths: ['docs/**', 'scripts/build-docs.sh', 'Makefile', '.github/workflows/docs.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: documents-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build documents
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends latexmk texlive-latex-extra texlive-fonts-recommended lmodern
+      - name: Build PDFs
+        run: make docs
+      - name: Upload preview PDFs
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: document-pdfs
+          path: |
+            docs/proposal/main.pdf
+            docs/report/main.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+  publish:
+    name: Update PDFs on main
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: document-pdfs
+          path: docs
+      - name: Publish only if sources are still current
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$SOURCE_SHA" ]; then
+            echo "A newer commit exists; its workflow will publish the latest PDFs."
+            exit 0
+          fi
+          git add docs/proposal/main.pdf docs/report/main.pdf
+          if git diff --cached --quiet; then
+            echo "PDFs are already up to date."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "docs: update generated PDFs"
+          git push origin HEAD:main

@@ -1,0 +1,113 @@
+\documentclass[11pt,a4paper]{article}
+
+% Compile with: pdflatex -interaction=nonstopmode -halt-on-error main.tex
+\usepackage[a4paper,left=20mm,right=20mm,top=18mm,bottom=19mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% Fallback for TeX installations with different Source Sans packages.
+\IfFileExists{sourcesans.sty}{\usepackage[default]{sourcesans}}{\IfFileExists{sourcesanspro.sty}{\usepackage[default]{sourcesanspro}}{\usepackage{lmodern}}}
+\usepackage{microtype}
+\usepackage{booktabs,tabularx,array,xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{accent}{HTML}{006E70}
+\definecolor{ink}{HTML}{20272A}
+\definecolor{muted}{HTML}{596367}
+\hypersetup{
+  pdftitle={High-Precision BLDC Motor Control Using a Custom ESP32-S3 PCB},
+  pdfsubject={Computer Architecture project profile, Fall Semester 2026},
+  pdfauthor={University of Basel project group}
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\linespread{1.06}
+\color{ink}
+
+\newcommand{\sectionlabel}[1]{%
+  \par\vspace{12pt}%
+  {\color{accent}\bfseries\fontsize{11.5}{14}\selectfont #1}%
+  \par\vspace{4pt}%
+}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% --- EDIT BEFORE FINAL SUBMISSION --------------------------------------------
+% Replace the surname placeholders; do not submit with placeholders.
+\newcommand{\MemberOne}{Hermes Reisner}
+\newcommand{\MemberTwo}{Jan Haag}
+\newcommand{\MemberThree}{Dominick }
+\newcommand{\MemberFour}{Noel }
+% Provisional engineering target, not a measured or approved specification.
+% Confirm the value and test conditions with the group before final submission.
+\newcommand{\TargetAngle}{1}
+
+% Provisional CHF budget allocation, NOT a vendor quotation or confirmed BOM.
+% Keep these integer values editable until the actual materials list is supplied.
+\newcommand{\MotorCost}{40}
+\newcommand{\PCBCost}{30}
+\newcommand{\ElectronicsCost}{70}
+\newcommand{\SensingCost}{20}
+\newcommand{\FallbackUnitCost}{10}
+\newcommand{\ReimbursementCap}{120}
+\newcommand{\BaseCost}{\number\numexpr\MotorCost+\PCBCost+\ElectronicsCost+\SensingCost\relax}
+\newcommand{\FallbackCost}{\number\numexpr2*\FallbackUnitCost\relax}
+\newcommand{\TotalCost}{\number\numexpr\BaseCost+\FallbackCost\relax}
+\newcommand{\BaseContribution}{\number\numexpr\BaseCost-\ReimbursementCap\relax}
+\newcommand{\MaxContribution}{\number\numexpr\TotalCost-\ReimbursementCap\relax}
+% -----------------------------------------------------------------------------
+
+\begin{document}
+
+% Institutional header
+{\bfseries\fontsize{12}{14}\selectfont University of Basel}%
+\hfill{\small\color{muted}25 October 2026}\par
+{\small\color{muted}Computer Architecture \textbar\ Fall Semester 2026}%
+\hfill{\small\color{muted}Project profile | HP BLDC Group}\par
+
+\vspace{7pt}
+{\color{accent}\hrule height 0.7pt}
+\vspace{16pt}
+
+% Title
+{\bfseries\fontsize{23}{26}\selectfont
+High-Precision BLDC Motor Control\\
+Using a Custom ESP32-S3 PCB\par}
+
+\vspace{13pt}
+{\small\bfseries\color{muted}GROUP MEMBERS}\par\vspace{1pt}
+{\small
+\begin{tabularx}{\linewidth}{@{}Y Y@{}}
+1.\ \MemberOne & 2.\ \MemberTwo \\[4pt]
+3.\ \MemberThree & 4.\ \MemberFour
+\end{tabularx}\par}
+
+\sectionlabel{Project Idea}
+We aim to design, assemble, and program a custom ESP32-S3-WROOM-based PCB for precise closed-loop angular positioning of a brushless DC (BLDC) motor, using rotor-position feedback and field-oriented control (FOC) as the intended control strategy.
+Together with the required motor-driving electronics, we plan to evaluate positioning accuracy and repeatability, provisionally targeting a steady-state absolute angular error of no more than \(\TargetAngle^\circ\) under no external load, subject to motor and sensor selection.
+If the custom PCB cannot be commissioned successfully, we plan to use off-the-shelf controller boards with the necessary motor-driving and sensing components connected externally.
+
+\sectionlabel{Materials \& Estimated Costs}
+{\fontsize{10.7}{13.5}\selectfont
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.34}
+\begin{tabularx}{\linewidth}{@{}Y P{45mm} R{24mm}@{}}
+\toprule
+\textbf{Component / category} & \textbf{Planned quantity} & \textbf{Cost (CHF)}\\
+\midrule
+BLDC motors & 2 & \MotorCost\\
+Custom PCB manufacturing & 8 prototype PCBs & \PCBCost\\
+ESP32-S3 modules, motor-driving and power electronics & Components for up to 8 boards & \ElectronicsCost\\
+Position sensors, wiring, and miscellaneous materials & As required & \SensingCost\\
+\midrule
+\textbf{Estimated base project cost} & & \textbf{\BaseCost}\\
+Optional external controller boards (fallback) & 2 $\times$ CHF \FallbackUnitCost & +\FallbackCost\\
+\midrule
+\textbf{Estimated total including fallback} & & \textbf{\TotalCost}\\
+\bottomrule
+\end{tabularx}\par}
+
+
+\end{document}
